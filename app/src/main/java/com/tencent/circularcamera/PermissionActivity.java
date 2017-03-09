@@ -1,7 +1,5 @@
 package com.tencent.circularcamera;
 
-import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -15,10 +13,7 @@ public class PermissionActivity extends AppCompatActivity {
     private PermissionsChecker mPermissionsChecker; // 权限检测器
     private static final int REQUEST_CODE = 0; // 请求码
 
-    // 所需的全部权限
-    static final String[] PERMISSIONS = new String[]{
-            Manifest.permission.CAMERA
-    };
+
 
 
     @Override
@@ -33,9 +28,9 @@ public class PermissionActivity extends AppCompatActivity {
         super.onResume();
         Log.i("xp", "PermissionActivity onResume");
         // 缺少权限时, 进入权限配置页面
-        if (mPermissionsChecker.lacksPermissions(PERMISSIONS)) {
+        if (mPermissionsChecker.lacksPermissions()) {
             Log.i("xp", "request permission");
-            ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_CODE);//自定义的code
+            ActivityCompat.requestPermissions(this, PermissionsChecker.PERMISSIONS, REQUEST_CODE);//自定义的code
         }
         else{
             startMainActivity();
@@ -61,9 +56,7 @@ public class PermissionActivity extends AppCompatActivity {
     }
 
     private void startMainActivity() {
-        Intent intent = new Intent();
-        intent.setClass(PermissionActivity.this, MainCameraActivity.class);
-        startActivity(intent);
+        CircularCamerManager.callCircular(this);
         finish();
     }
 

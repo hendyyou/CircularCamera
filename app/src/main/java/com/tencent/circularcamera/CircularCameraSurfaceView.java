@@ -16,6 +16,18 @@ public class CircularCameraSurfaceView extends GLSurfaceView implements GLSurfac
     SurfaceTexture mSurface;
     int mTextureID = -1;
     DirectDrawer mDirectDrawer;
+
+    public CircularCameraSurfaceView(Context context) {
+        super(context);
+        mContext = context;
+        setZOrderOnTop(true);
+        setEGLContextClientVersion(2);
+        setEGLConfigChooser(8, 8, 8, 8, 16, 0);
+        getHolder().setFormat(PixelFormat.TRANSLUCENT);
+        setRenderer(this);
+        setRenderMode(RENDERMODE_WHEN_DIRTY);
+    }
+
     public CircularCameraSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
