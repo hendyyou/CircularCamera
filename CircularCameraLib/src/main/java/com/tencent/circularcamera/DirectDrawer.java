@@ -76,11 +76,13 @@ public class DirectDrawer {
         vertexBuffer = bb.asFloatBuffer();
         vertexBuffer.put(squareCoords);
         vertexBuffer.position(0);
+
         ByteBuffer dlb = ByteBuffer.allocateDirect(drawOrder.length * 2);
         dlb.order(ByteOrder.nativeOrder());
         drawListBuffer = dlb.asShortBuffer();
         drawListBuffer.put(drawOrder);
         drawListBuffer.position(0);
+
         ByteBuffer bb2 = ByteBuffer.allocateDirect(textureVertices.length * 4);
         bb2.order(ByteOrder.nativeOrder());
         textureVerticesBuffer = bb2.asFloatBuffer();
