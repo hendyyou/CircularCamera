@@ -1,10 +1,10 @@
 package com.tencent.circularcamera;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageButton;
 
-public class MainCameraActivity extends AppCompatActivity {
+public class MainCameraActivity extends Activity {
 
     CircularCameraSurfaceView glSurfaceView = null;
     ImageButton shutterBtn;

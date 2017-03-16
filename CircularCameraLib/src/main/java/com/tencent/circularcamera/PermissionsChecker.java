@@ -2,8 +2,6 @@ package com.tencent.circularcamera;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.support.v4.content.ContextCompat;
 
 /**
  * Created by maxpengli on 2017/3/8.
@@ -36,6 +34,7 @@ public class PermissionsChecker {
 
     // 判断是否缺少权限
     private boolean lacksPermission(String permission) {
-        return ContextCompat.checkSelfPermission(mContext, permission) == PackageManager.PERMISSION_DENIED;
+//        return ContextCompat.checkSelfPermission(mContext, permission) == PackageManager.PERMISSION_DENIED;
+        return false;
     }
 }
