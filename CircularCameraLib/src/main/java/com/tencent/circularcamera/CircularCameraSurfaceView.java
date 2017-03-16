@@ -50,7 +50,7 @@ public class CircularCameraSurfaceView extends GLSurfaceView implements GLSurfac
     }
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
-        GLES20.glViewport(0, 0, 500, 500);
+        GLES20.glViewport(0, 0, 350, 350);
         if(!CameraInterface.getInstance().isPreviewing()){
             CameraInterface.getInstance().doStartPreview(mSurface, 1.33f);
         }

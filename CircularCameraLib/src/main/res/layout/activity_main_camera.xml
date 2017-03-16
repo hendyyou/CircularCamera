@@ -13,8 +13,8 @@
         android:background="@android:color/transparent">
         <com.tencent.circularcamera.CircularCameraSurfaceView
             android:id="@+id/camera_textureview"
-            android:layout_width="170dp"
-            android:layout_height="170dp" />
+            android:layout_width="120dp"
+            android:layout_height="120dp" />
     </FrameLayout>
     <ImageButton
         android:id="@+id/btn_shutter"

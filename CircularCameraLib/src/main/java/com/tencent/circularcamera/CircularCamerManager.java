@@ -99,8 +99,8 @@ public class CircularCamerManager {
         //调整悬浮窗显示的停靠位置为左侧置顶
         wmParams.gravity = Gravity.TOP|Gravity.LEFT;
         // 以屏幕左上角为原点，设置x、y初始值，相对于gravity
-        wmParams.x = 800;
-        wmParams.y = 600;
+        wmParams.x = 0;
+        wmParams.y = 0;
         //设置悬浮窗口长宽数据
         wmParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
         wmParams.height = WindowManager.LayoutParams.WRAP_CONTENT;

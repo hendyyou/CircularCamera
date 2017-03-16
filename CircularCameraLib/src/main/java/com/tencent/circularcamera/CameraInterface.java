@@ -120,7 +120,7 @@ public class CameraInterface {
             mParams.setPreviewSize(previewSize.width, previewSize.height);
 //            mParams.set("orientation", "portrait");
 //            mParams.setRotation(90);
-//            mCamera.setDisplayOrientation(90);
+            mCamera.setDisplayOrientation(90);
 
             List<String> focusModes = mParams.getSupportedFocusModes();
             if(focusModes.contains("continuous-video")){
