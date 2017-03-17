@@ -1,6 +1,7 @@
 package com.tencent.circularcamera;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.graphics.SurfaceTexture;
 import android.opengl.GLES11Ext;
@@ -63,7 +64,13 @@ public class CircularCameraSurfaceView extends GLSurfaceView implements GLSurfac
         mSurface.updateTexImage();
         float[] mtx = new float[16];
         mSurface.getTransformMatrix(mtx);
-        mDirectDrawer.draw(mtx);
+        boolean isLandScreen = false;
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            isLandScreen = true;
+        } else {
+            isLandScreen = false;
+        }
+        mDirectDrawer.draw(mtx,isLandScreen);
     }
 
     @Override

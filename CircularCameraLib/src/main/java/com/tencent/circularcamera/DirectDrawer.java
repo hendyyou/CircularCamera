@@ -39,7 +39,7 @@ public class DirectDrawer {
             "gl_FragColor = innerColor + midColor;\n" +
             "}";
 
-    private FloatBuffer vertexBuffer, textureVerticesBuffer;
+    private FloatBuffer vertexBuffer, textureVerticesBuffer,textureVerticesBufferLand;
     private ShortBuffer drawListBuffer;
     private final int mProgram;
     private int mPositionHandle;
@@ -66,6 +66,15 @@ public class DirectDrawer {
             1.0f, 0.0f,
     };
 
+    static float textureVerticesLandScreen[] = {
+            1.0f, 0.0f,
+            1.0f, 1.0f,
+            0.0f, 1.0f,
+            0.0f, 0.0f,
+
+
+    };
+
     private int texture;
 
     public DirectDrawer(int texture)
@@ -89,6 +98,12 @@ public class DirectDrawer {
         textureVerticesBuffer.put(textureVertices);
         textureVerticesBuffer.position(0);
 
+        ByteBuffer bb22 = ByteBuffer.allocateDirect(textureVerticesLandScreen.length * 4);
+        bb22.order(ByteOrder.nativeOrder());
+        textureVerticesBufferLand = bb22.asFloatBuffer();
+        textureVerticesBufferLand.put(textureVerticesLandScreen);
+        textureVerticesBufferLand.position(0);
+
         int vertexShader    = loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderCode);
         int fragmentShader  = loadShader(GLES20.GL_FRAGMENT_SHADER, fragmentShaderCode);
 
@@ -99,7 +114,7 @@ public class DirectDrawer {
         Log.d("Shader", "Program : " + GLES20.glGetProgramInfoLog(mProgram));
     }
 
-    public void draw(float[] mtx)
+    public void draw(float[] mtx,boolean isLandScreen)
     {
         GLES20.glUseProgram(mProgram);
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
@@ -109,7 +124,12 @@ public class DirectDrawer {
         GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, vertexStride, vertexBuffer);
         mTextureCoordHandle = GLES20.glGetAttribLocation(mProgram, "inputTextureCoordinate");
         GLES20.glEnableVertexAttribArray(mTextureCoordHandle);
-        GLES20.glVertexAttribPointer(mTextureCoordHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, vertexStride, textureVerticesBuffer);
+        if(isLandScreen){
+            GLES20.glVertexAttribPointer(mTextureCoordHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, vertexStride, textureVerticesBufferLand);
+        }else {
+            GLES20.glVertexAttribPointer(mTextureCoordHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, vertexStride, textureVerticesBuffer);
+        }
+
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.length, GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
         GLES20.glDisableVertexAttribArray(mPositionHandle);
         GLES20.glDisableVertexAttribArray(mTextureCoordHandle);
