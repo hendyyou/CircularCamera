@@ -44,13 +44,10 @@ public class CameraFilterBlend extends CameraFilter {
     }
 
     @Override
-    protected void bindGLSLValues(float[] mvpMatrix, FloatBuffer vertexBuffer, int coordsPerVertex,
-            int vertexStride, float[] texMatrix, FloatBuffer texBuffer, int texStride) {
-        super.bindGLSLValues(mvpMatrix, vertexBuffer, coordsPerVertex, vertexStride, texMatrix,
-                texBuffer, texStride);
+    protected void bindGLSLValues(float[] mvpMatrix, FloatBuffer vertexBuffer, float[] texMatrix, FloatBuffer texBuffer) {
+        super.bindGLSLValues(mvpMatrix, vertexBuffer, texMatrix,texBuffer);
         GLES20.glEnableVertexAttribArray(maExtraTextureCoordLoc);
-        GLES20.glVertexAttribPointer(maExtraTextureCoordLoc, 2, GLES20.GL_FLOAT, false, texStride,
-                texBuffer);
+        GLES20.glVertexAttribPointer(maExtraTextureCoordLoc, 2, GLES20.GL_FLOAT, false, 2*4,texBuffer);
     }
 
     @Override protected void unbindGLSLValues() {

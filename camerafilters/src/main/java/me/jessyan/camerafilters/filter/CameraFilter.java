@@ -63,9 +63,8 @@ public class CameraFilter extends AbstractFilter implements IFilter {
     }
 
     @Override
-    public void onDraw(float[] mvpMatrix, FloatBuffer vertexBuffer, int firstVertex,
-                       int vertexCount, int coordsPerVertex, int vertexStride, float[] texMatrix,
-                       FloatBuffer texBuffer, int textureId, int texStride) {
+    public void onDraw(float[] mvpMatrix, FloatBuffer vertexBuffer,float[] texMatrix,
+                       FloatBuffer texBuffer, int textureId) {
 
         GlUtil.checkGlError("draw start");
 
@@ -73,10 +72,9 @@ public class CameraFilter extends AbstractFilter implements IFilter {
 
         bindTexture(textureId);
 
-        bindGLSLValues(mvpMatrix, vertexBuffer, coordsPerVertex, vertexStride, texMatrix, texBuffer,
-                texStride);
+        bindGLSLValues(mvpMatrix, vertexBuffer, texMatrix, texBuffer);
 
-        drawArrays(firstVertex, vertexCount);
+        drawArrays();
 
         unbindGLSLValues();
 
@@ -99,26 +97,26 @@ public class CameraFilter extends AbstractFilter implements IFilter {
     }
 
     @Override
-    protected void bindGLSLValues(float[] mvpMatrix, FloatBuffer vertexBuffer, int coordsPerVertex,
-                                  int vertexStride, float[] texMatrix, FloatBuffer texBuffer, int texStride) {
+    protected void bindGLSLValues(float[] mvpMatrix,
+                                  FloatBuffer vertexBuffer,
+                                  float[] texMatrix,
+                                  FloatBuffer texBuffer) {
 
         GLES20.glUniformMatrix4fv(muMVPMatrixLoc, 1, false, mvpMatrix, 0);
         if (texMatrix != null && texMatrix.length > 0)
             GLES20.glUniformMatrix4fv(muTexMatrixLoc, 1, false, texMatrix, 0);
 
         GLES20.glEnableVertexAttribArray(maPositionLoc);
-        GLES20.glVertexAttribPointer(maPositionLoc, coordsPerVertex, GLES20.GL_FLOAT, false,
-                vertexStride, vertexBuffer);
+        GLES20.glVertexAttribPointer(maPositionLoc, 2, GLES20.GL_FLOAT, false, 2*4, vertexBuffer);
         GLES20.glEnableVertexAttribArray(maTextureCoordLoc);
-        GLES20.glVertexAttribPointer(maTextureCoordLoc, 2, GLES20.GL_FLOAT, false, texStride,
-                texBuffer);
+        GLES20.glVertexAttribPointer(maTextureCoordLoc, 2, GLES20.GL_FLOAT, false, 2*4,texBuffer);
     }
 
     @Override
-    protected void drawArrays(int firstVertex, int vertexCount) {
+    protected void drawArrays() {
         GLES20.glClearColor(0f, 0f, 0f, 1f);
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, firstVertex, vertexCount);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);
     }
 
     @Override

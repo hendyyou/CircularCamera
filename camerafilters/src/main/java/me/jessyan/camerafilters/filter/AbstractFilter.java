@@ -16,11 +16,12 @@ public abstract class AbstractFilter {
 
     protected abstract void bindTexture(int textureId);
 
-    protected abstract void bindGLSLValues(float[] mvpMatrix, FloatBuffer vertexBuffer,
-                                           int coordsPerVertex, int vertexStride, float[] texMatrix, FloatBuffer texBuffer,
-                                           int texStride);
+    protected abstract void bindGLSLValues(float[] mvpMatrix,
+                                           FloatBuffer vertexBuffer,
+                                           float[] texMatrix,
+                                           FloatBuffer texBuffer);
 
-    protected abstract void drawArrays(int firstVertex, int vertexCount);
+    protected abstract void drawArrays();
 
     protected abstract void unbindGLSLValues();
 

@@ -38,10 +38,8 @@ public class CameraFilterBeauty extends CameraFilter {
     }
 
     @Override
-    protected void bindGLSLValues(float[] mvpMatrix, FloatBuffer vertexBuffer, int coordsPerVertex,
-                                  int vertexStride, float[] texMatrix, FloatBuffer texBuffer, int texStride) {
-        super.bindGLSLValues(mvpMatrix, vertexBuffer, coordsPerVertex, vertexStride, texMatrix,
-                texBuffer, texStride);
+    protected void bindGLSLValues(float[] mvpMatrix, FloatBuffer vertexBuffer,float[] texMatrix, FloatBuffer texBuffer) {
+        super.bindGLSLValues(mvpMatrix, vertexBuffer, texMatrix,texBuffer);
 
         GLES20.glUniform2fv(singleStepOffset, 1, offset_array, 0);
     }
