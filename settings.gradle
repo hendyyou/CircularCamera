@@ -1,1 +1,1 @@
-include ':CircularCameraLib', ':demo'
+include ':CircularCameraLib', ':demo', ':camerafilters'

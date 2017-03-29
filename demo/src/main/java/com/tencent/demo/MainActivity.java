@@ -3,7 +3,6 @@ package com.tencent.demo;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import com.tencent.circularcamera.CircularCamerManager;
 
@@ -15,23 +14,26 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+    }
 
-        Button button = (Button)findViewById(R.id.show);
-        Button buttonHide = (Button)findViewById(R.id.hide);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.show:
                 CircularCamerManager.callCircular(MainActivity.this);
-            }
-        });
-        buttonHide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                break;
+            case R.id.hide:
                 CircularCamerManager.hideCircular();
-
-            }
-        });
-
+                break;
+            case R.id.bt_none:
+                CircularCamerManager.changeNoneFilter();
+                break;
+            case R.id.bt_inner:
+                CircularCamerManager.changeInnerFilter();
+                break;
+            case R.id.bt_extension:
+                CircularCamerManager.changeExtensionFilter();
+                break;
+        }
     }
 
 

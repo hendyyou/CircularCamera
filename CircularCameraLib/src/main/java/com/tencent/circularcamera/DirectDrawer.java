@@ -13,13 +13,13 @@ import java.nio.ShortBuffer;
 public class DirectDrawer {
     private final String vertexShaderCode =
             "attribute vec4 vPosition;" +
-                    "attribute vec2 inputTextureCoordinate;" +
-                    "varying vec2 texCoord;" +
-                    "void main()" +
-                    "{"+
-                    "gl_Position = vPosition;"+
-                    "texCoord = inputTextureCoordinate;" +
-                    "}";
+            "attribute vec2 inputTextureCoordinate;" +
+            "varying vec2 texCoord;" +
+            "void main()" +
+            "{"+
+            "gl_Position = vPosition;"+
+            "texCoord = inputTextureCoordinate;" +
+            "}";
 
     private final String fragmentShaderCode =
             "#extension GL_OES_EGL_image_external : require\n"+

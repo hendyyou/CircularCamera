@@ -1,7 +1,6 @@
 package com.tencent.circularcamera;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,7 +22,7 @@ public class CircularCamerManager {
     //创建浮动窗口设置布局参数的对象
     WindowManager.LayoutParams wmParams;
 
-    CircularCameraSurfaceView glSurfaceView = null;
+    private CircularCameraSurfaceView glSurfaceView = null;
 
     private volatile static CircularCamerManager instance = null;
 
@@ -46,7 +45,20 @@ public class CircularCamerManager {
         view2.hide();
     }
 
+    public static void changeNoneFilter(){
+        CircularCamerManager view = CircularCamerManager.getInstance();
+        view.getGLSurface().changeNoneFilter();
+    }
 
+    public static void changeInnerFilter(){
+        CircularCamerManager view = CircularCamerManager.getInstance();
+        view.getGLSurface().changeInnerFilter();
+    }
+
+    public static void changeExtensionFilter(){
+        CircularCamerManager view = CircularCamerManager.getInstance();
+        view.getGLSurface().changeExtensionFilter();
+    }
 
 
     private CircularCamerManager() {
@@ -71,16 +83,16 @@ public class CircularCamerManager {
         if (isshow){
             return;
         }
-        permissionsChecker = new PermissionsChecker(context);
-        if(permissionsChecker.lacksPermissions())//缺少权限
-        {
-            Intent  intent = new Intent();
-            intent.setClass(context,PermissionActivity.class);
-            context.startActivity(intent);
-        }else {
-            initWindow(context);
-        }
-
+//        permissionsChecker = new PermissionsChecker(context);
+//        if(permissionsChecker.lacksPermissions())//缺少权限
+//        {
+//            Intent  intent = new Intent();
+//            intent.setClass(context,PermissionActivity.class);
+//            context.startActivity(intent);
+//        }else {
+//            initWindow(context);
+//        }
+        initWindow(context);
     }
 
 
@@ -113,6 +125,7 @@ public class CircularCamerManager {
             private float mTouchStartY;
             private float x;
             private float y;
+
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 //获取相对屏幕的坐标，即以屏幕左上角为原点
@@ -143,6 +156,10 @@ public class CircularCamerManager {
                 return true;
             }
         });
+    }
+
+    private CircularCameraSurfaceView getGLSurface(){
+        return glSurfaceView;
     }
 
     private void show(){
