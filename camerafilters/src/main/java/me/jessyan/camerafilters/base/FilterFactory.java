@@ -28,24 +28,23 @@ public class FilterFactory {
      *
      * @param context
      * @param index
-     * @param isUseQiniu
      * @return
      */
-    public static IFilter getCameraFilter(Context context, int index, boolean isUseQiniu) {
+    public static IFilter getCameraFilter(Context context, int index) {
         if (index > 3 + mCurveArrays.length - 1 || index < 0) {
             throw new IllegalArgumentException("not have this index.");
         }
         switch (index) {
             case 0:
-                return new CameraFilter(context, isUseQiniu);
+                return new CameraFilter(context);
 
             case 1:
-                return new CameraFilterBeauty(context, isUseQiniu);
+                return new CameraFilterBeauty(context);
             case 2:
-                return new CameraFilterMosaic(context, isUseQiniu);
+                return new CameraFilterMosaic(context);
             default:
                 return new CameraFilterToneCurve(context,
-                        context.getResources().openRawResource(mCurveArrays[index - 3]), isUseQiniu);
+                        context.getResources().openRawResource(mCurveArrays[index - 3]));
         }
     }
 }

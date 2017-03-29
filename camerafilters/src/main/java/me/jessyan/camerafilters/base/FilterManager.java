@@ -33,14 +33,12 @@ public class FilterManager {
     private FilterInfo mNewFilter;//新的滤镜
     private Context mContext;
     private onExtFilterListener mExtFilterListener;
-    private boolean isUseQiniu;
 
     private FilterManager(Builder builder) {
         this.mEnable = builder.isEnable;
         this.mContext = builder.mContext;
         this.mDefaultFilter = builder.mDefaultFilter;
         this.mExtFilterListener = builder.mExtFilterListener;
-        this.isUseQiniu = builder.isUseQiniu;
     }
 
     public static Builder builder() {
@@ -61,7 +59,7 @@ public class FilterManager {
                             case 0://继承于cameraFitlter后可自定义filter,此Filter可任意添加一张图片到界面上
                                 return new CameraFilterBlend(context, R.mipmap.pic_addpic);
                             default:
-                                return new CameraFilter(context, false);
+                                return new CameraFilter(context);
                         }
                     }
                 })
@@ -114,7 +112,7 @@ public class FilterManager {
 
             return extFilter;
         } else {
-            return FilterFactory.getCameraFilter(mContext, info.index, isUseQiniu);
+            return FilterFactory.getCameraFilter(mContext, info.index);
         }
     }
 
@@ -248,7 +246,6 @@ public class FilterManager {
         private boolean isEnable = true;
         private FilterInfo mDefaultFilter;
         private Context mContext;
-        private boolean isUseQiniu;
         private onExtFilterListener mExtFilterListener;
 
         private Builder() {
@@ -266,11 +263,6 @@ public class FilterManager {
 
         public Builder defaultFilter(FilterInfo info) {
             this.mDefaultFilter = info;
-            return this;
-        }
-
-        public Builder isUseQiniu(boolean isUseQiniu) {
-            this.isUseQiniu = isUseQiniu;
             return this;
         }
 

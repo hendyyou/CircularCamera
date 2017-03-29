@@ -3,10 +3,10 @@ package me.jessyan.camerafilters.filter;
 import android.content.Context;
 import android.opengl.GLES20;
 
+import java.nio.FloatBuffer;
+
 import me.jessyan.camerafilters.R;
 import me.jessyan.camerafilters.util.GlUtil;
-
-import java.nio.FloatBuffer;
 
 /**
  * Created by shengwenhui on 16/3/3.
@@ -18,13 +18,13 @@ public class CameraFilterMosaic extends CameraFilter {
             255, 255,
     };
 
-    public CameraFilterMosaic(Context context, boolean isUseQiniu) {
-        super(context, isUseQiniu);
+    public CameraFilterMosaic(Context context) {
+        super(context);
     }
 
     @Override
-    protected int createProgram(Context applicationContext, boolean isUseQiniu) {
-        return GlUtil.createProgram(applicationContext, isUseQiniu ? R.raw.vertex_shader_qiniu : R.raw.vertex_shader,
+    protected int createProgram(Context applicationContext) {
+        return GlUtil.createProgram(applicationContext,R.raw.vertex_shader,
                 R.raw.fragment_shader_mosaic);
     }
 
