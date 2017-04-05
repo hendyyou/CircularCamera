@@ -19,30 +19,5 @@
         android:onClick="onClick"
         android:layout_below="@+id/show"
         android:text="hide"/>
-    <Button
-        android:id="@+id/bt_none"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/hide"
-        android:background="#0000"
-        android:onClick="onClick"
-        android:text="无滤镜" />
 
-    <Button
-        android:id="@+id/bt_inner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bt_none"
-        android:background="#0000"
-        android:onClick="onClick"
-        android:text="内置滤镜" />
-
-    <Button
-        android:id="@+id/bt_extension"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bt_inner"
-        android:background="#0000"
-        android:onClick="onClick"
-        android:text="扩展滤镜" />
 </RelativeLayout>

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<View
-    android:id="@+id/image"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight="1"
-    android:adjustViewBounds="true"
-    android:background="#88888888"
-    android:contentDescription="@null"/>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context="com.tencent.circularcamera.MainCameraActivity"
+    android:background="@android:color/transparent">
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="请授予摄像头权限，否则无法打开摄像头"/>
+
+
+</RelativeLayout>

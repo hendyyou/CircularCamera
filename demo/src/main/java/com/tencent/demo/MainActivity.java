@@ -2,9 +2,10 @@ package com.tencent.demo;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
-import com.tencent.circularcamera.CircularCamerManager;
+import com.tencent.circularcamera.CamerManager;
 
 public class MainActivity extends Activity {
 
@@ -13,28 +14,31 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("xp","mainActivity ondestroy");
     }
 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.show:
-                CircularCamerManager.callCircular(MainActivity.this);
+                CamerManager.show(this);
                 break;
             case R.id.hide:
-                CircularCamerManager.hideCircular();
+                CamerManager.hide();
                 break;
-            case R.id.bt_none:
-                CircularCamerManager.changeNoneFilter();
-                break;
-            case R.id.bt_inner:
-                CircularCamerManager.changeInnerFilter();
-                break;
-            case R.id.bt_extension:
-                CircularCamerManager.changeExtensionFilter();
+            default:
                 break;
         }
     }
-
 
 }

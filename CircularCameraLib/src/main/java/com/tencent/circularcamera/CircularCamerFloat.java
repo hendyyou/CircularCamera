@@ -1,6 +1,9 @@
 package com.tencent.circularcamera;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.PixelFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -8,68 +11,40 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+import android.support.v4.content.PermissionChecker;
 
 /**
  * Created by maxpengli on 2017/3/9.
+ * 圆角摄像头悬浮窗
  */
-public class CircularCamerManager {
-    Context context;
+public class CircularCamerFloat {
+
+    private Context context;
 
     //定义浮动窗口布局
-    RelativeLayout mFloatLayout;
+    private RelativeLayout mFloatLayout;
 
-    WindowManager mWindowManager;
+    private WindowManager mWindowManager;
     //创建浮动窗口设置布局参数的对象
-    WindowManager.LayoutParams wmParams;
+    private WindowManager.LayoutParams wmParams;
 
     private CircularCameraSurfaceView glSurfaceView = null;
 
-    private volatile static CircularCamerManager instance = null;
-
+    private volatile static CircularCamerFloat instance = null;
 
     private boolean isshow = false;
-
-    PermissionsChecker permissionsChecker = null;
-
+    private boolean isInit = false;
 
 
-    //最终接口   调起摄像头悬浮窗
-    public static void callCircular(Context context){
-        CircularCamerManager view = CircularCamerManager.getInstance();
-        view.init(context);
-        view.show();
-    }
-    //最终接口  关闭摄像头悬浮窗
-    public static void hideCircular(){
-        CircularCamerManager view2  = CircularCamerManager.getInstance();
-        view2.hide();
-    }
-
-    public static void changeNoneFilter(){
-        CircularCamerManager view = CircularCamerManager.getInstance();
-        view.getGLSurface().changeNoneFilter();
-    }
-
-    public static void changeInnerFilter(){
-        CircularCamerManager view = CircularCamerManager.getInstance();
-        view.getGLSurface().changeInnerFilter();
-    }
-
-    public static void changeExtensionFilter(){
-        CircularCamerManager view = CircularCamerManager.getInstance();
-        view.getGLSurface().changeExtensionFilter();
-    }
-
-
-    private CircularCamerManager() {
+    private CircularCamerFloat() {
 
     }
 
-    private static CircularCamerManager getInstance(){
+    public static CircularCamerFloat getInstance(){
         if(instance == null){
-            synchronized (CircularCamerManager.class){
+            synchronized (CircularCamerFloat.class){
                 if(instance == null){
-                    instance = new CircularCamerManager();
+                    instance = new CircularCamerFloat();
                 }
             }
         }
@@ -78,21 +53,20 @@ public class CircularCamerManager {
     }
 
 
-    private void init(Context context){
-        this.context = context;
-        if (isshow){
+    public void init(Context context){
+        if(isInit){
             return;
         }
-//        permissionsChecker = new PermissionsChecker(context);
-//        if(permissionsChecker.lacksPermissions())//缺少权限
-//        {
-//            Intent  intent = new Intent();
-//            intent.setClass(context,PermissionActivity.class);
-//            context.startActivity(intent);
-//        }else {
-//            initWindow(context);
-//        }
-        initWindow(context);
+        this.context = context;
+
+        if(PermissionChecker.checkSelfPermission(this.context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)//缺少权限
+        {
+            Intent intent = new Intent();
+            intent.setClass(this.context,PermissionActivity.class);
+            context.startActivity(intent);
+        }else{
+            initWindow(context);
+        }
     }
 
 
@@ -156,13 +130,14 @@ public class CircularCamerManager {
                 return true;
             }
         });
+
+        isInit = true;
     }
 
-    private CircularCameraSurfaceView getGLSurface(){
-        return glSurfaceView;
-    }
-
-    private void show(){
+    public void show(){
+        if(!isInit){
+            return;
+        }
         if (isshow){
             return;
         }
@@ -172,7 +147,10 @@ public class CircularCamerManager {
 
     }
 
-    private void hide(){
+    public void hide(){
+        if(!isInit){
+            return;
+        }
         if (!isshow){
             return;
         }

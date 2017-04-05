@@ -18,6 +18,10 @@ import com.tencent.circularcamera.util.ImageUtil;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * maxpengli
+ * 摄像头接口类
+ */
 public class CameraInterface {
     private static final String TAG = "CameraInterface";
     private Camera mCamera;
